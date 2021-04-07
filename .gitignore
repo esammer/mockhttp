@@ -1,0 +1,9 @@
+# Generated files
+build
+
+# IntelliJ project files
+.idea
+*.iml
+
+# Editor temp files
+*.sw[op]
