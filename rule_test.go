@@ -69,7 +69,7 @@ func TestRule_MatchAndInvoke(t *testing.T) {
 	})
 }
 
-// Most of the time you'll use create rules and configure MockRoundTripper to use them rather
+// Most of the time you'll create rules and configure MockRoundTripper to use them rather
 // than invoking Match*() methods yourself, but if you're curious, here's how they work.
 func ExampleRule_creatingRules() {
 	// Rules combine a matcher with a responder.
