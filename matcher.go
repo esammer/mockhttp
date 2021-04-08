@@ -79,3 +79,20 @@ func MatchPath(path string) *matcher.PathMatcher {
 func MatchPathRegex(pattern string) *matcher.PathRegexMatcher {
 	return &matcher.PathRegexMatcher{Pattern: regexp.MustCompile(pattern)}
 }
+
+// Creates a new request body matcher.
+//
+// Body matchers require the content type and body content to match that of the
+// request. An empty contentType is allowed, although it means the request must NOT
+// contain a Content-Type header rather than "match the body, only." If body the body
+// argument is empty it will match a request with a nil Body field or a body that
+// contains the empty string.
+//
+// Body matchers have to read the request body to determine whether not they match
+// necessitating the matcher to exhaust and replace the Body reader.
+func MatchBody(contentType string, body string) *matcher.BodyMatcher {
+	return &matcher.BodyMatcher{
+		ContentType: contentType,
+		Body:        body,
+	}
+}

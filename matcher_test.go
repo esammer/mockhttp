@@ -5,6 +5,7 @@ import (
 	"github.com/esammer/mockhttp/matcher"
 	"github.com/stretchr/testify/require"
 	"net/http"
+	"strings"
 	"testing"
 )
 
@@ -68,4 +69,15 @@ func TestMatchPathRegex(t *testing.T) {
 	require.NotNil(t, m)
 	require.True(t, m.Match(httputil.NewGetRequest("/abc")))
 	require.False(t, m.Match(httputil.NewGetRequest("/abc/")))
+}
+
+func TestMatchBody(t *testing.T) {
+	m := MatchBody("application/json", "{ }")
+	require.NotNil(t, m)
+
+	r1 := httputil.NewPostRequest("/", strings.NewReader("{ }"))
+	r1.Header.Set("Content-Type", "application/json")
+	require.True(t, m.Match(r1))
+
+	require.False(t, m.Match(httputil.NewPostRequest("/", nil)))
 }
