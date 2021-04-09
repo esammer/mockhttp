@@ -30,6 +30,7 @@ func (m *BodyMatcher) Match(req *http.Request) bool {
 
 	buf := &bytes.Buffer{}
 	r := io.TeeReader(req.Body, buf)
+	req.Body = ioutil.NopCloser(buf)
 
 	b, err := ioutil.ReadAll(r)
 	if err != nil {

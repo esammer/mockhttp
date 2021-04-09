@@ -69,6 +69,8 @@ func TestBodyMatcher_Match(t *testing.T) {
 			}
 
 			require.Equal(t, test.expected, test.matcher.Match(req))
+			// We purposefully test twice to make sure the body reader is reset.
+			require.Equal(t, test.expected, test.matcher.Match(req))
 		})
 	}
 }
